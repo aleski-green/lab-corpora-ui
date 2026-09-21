@@ -60,10 +60,12 @@ Browser edits use the separate localStorage key `corpora-sapiens-cases-v1`. Afte
 
 The fixture excludes credentials, machine paths, runtime settings, memory consolidation, and raw tool traces. All business inputs remain clearly labeled SAMPLE DATA. It is a development snapshot, not an API backup or a live synchronization mechanism.
 
-## Compact neutral appearance
+## Sapiens4 appearance
 
-The workspace uses system typography, white/charcoal themes, a compact agent list, and unboxed assistant replies. Long messages keep their complete original text inside **Show full message**; task references use the existing task title in the collapsed preview. Artifact buttons use the existing document title. Activity and Schedules live under **More**, and suggested prompts are collapsed by default. The existing demo fixture and storage key are unchanged. Embedded documents retain their own styles.
+The workspace shell matches Sapiens4 main at `ffeedba`: system typography, white/charcoal themes, pink interaction accents, colorful 40px list avatars and 45px header avatars, and a pink ring identifying the main Sapi. Names and message previews use the larger live scale, with timestamps aligned to the right and 10.5px presence dots.
 
-Workspace appearance overrides are scoped to `body.sapi-workspace` in `assets/sapi-theme.css`; other lab modules retain their existing design. Rebuild the portable HTML after editing the source.
+Chat messages and their timestamps remain visible in full. Assistant replies are unboxed, user replies use neutral bubbles, and the composer and search field each use one outer focus indicator. Opening a chat jumps to its latest message without animated scrolling. The header shows the agent’s role; Chat, Tasks, Schedules, and Log stay directly accessible. The lab retains its simulated autonomy control rather than claiming a live backend connection. Live-only Jobs and MemX are not simulated here.
 
-The pink **Sapiens4** wordmark opens `#home:root`, restores the panels, and selects the main Sapi’s chat, including on direct navigation or reload. Agent colors and latest-update previews remain visible. Interactive shell controls use pink hover and focus accents in both themes; panel toggles stay neutral at rest.
+The pink **Sapiens4** wordmark opens `#home:root`, restores the panels, and selects the main Sapi’s chat, including on direct navigation or reload. Sample conversations, tasks, artifacts, and the existing storage key are unchanged. Embedded documents retain their own styles.
+
+Workspace appearance is scoped to `body.sapi-workspace` in `assets/sapi-theme.css`; other lab modules retain their existing design. Rebuild the portable HTML after editing the source. This sync changes the lab only; it does not update Sapiens4’s submodule pin or live files.

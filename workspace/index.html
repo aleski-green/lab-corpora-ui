@@ -20,7 +20,7 @@
       </nav>
       <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" title="Switch to dark theme">☾</button>
       <button class="pill" id="autonomy-button"><span>✦</span> <span id="autonomy-label">Autonomous</span> <span>⌄</span></button>
-      <button class="user-avatar" id="profile-button" aria-label="Workspace settings">AP</button>
+      <button class="user-avatar" id="profile-button" aria-label="Workspace settings">Admin <span aria-hidden="true">⌄</span></button>
     </header>
     <div class="main-grid">
       <aside class="sidebar" id="chat-list-panel" aria-label="Chat list">
@@ -34,12 +34,11 @@
       </aside>
       <section class="conversation" id="chat-panel" aria-label="Agent conversation">
         <div class="agent-heading" id="agent-heading"></div>
-        <nav class="conversation-tabs" aria-label="Agent activity"><button data-panel="chat" class="active">Chat</button><button data-panel="tasks">Tasks <span id="task-count">3</span></button><details class="activity-menu"><summary aria-label="More agent activity">More <span aria-hidden="true">⌄</span></summary><div class="activity-popover"><button data-panel="log">Activity</button><button data-panel="cron">Schedules</button></div></details></nav>
+        <nav class="conversation-tabs" aria-label="Agent activity"><button data-panel="chat" class="active">Chat</button><button data-panel="tasks">Tasks <span id="task-count">3</span></button><button data-panel="cron">Schedules</button><button data-panel="log">Log <span class="log-dot"></span></button></nav>
         <div class="conversation-body" id="conversation-body"></div>
         <div class="composer-area" id="composer-area">
           <div id="attachment-chip"></div>
-          <form class="composer" id="chat-form"><textarea rows="1" id="message-input" placeholder="Message Aaron…" aria-label="Message agent"></textarea><div class="composer-bottom"><button type="button" id="attach-button" class="icon-button" aria-label="Attach a demo document">＋</button><button type="submit" class="send-button" aria-label="Send message">↑</button></div></form>
-          <div class="composer-hint"><span>Autonomous</span><span>Enter ↵</span></div>
+          <form class="composer" id="chat-form"><textarea rows="3" id="message-input" placeholder="Message Aaron…" aria-label="Message agent"></textarea><div class="composer-bottom"><button type="button" id="attach-button" class="icon-button" aria-label="Attach a demo document">＋</button><button type="submit" class="send-button" aria-label="Send message">↑</button></div></form>
         </div>
       </section>
       <main class="workspace" id="workspace-panel" aria-label="Agent workspace">

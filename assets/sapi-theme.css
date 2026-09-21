@@ -232,8 +232,8 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
 
 .sapi-workspace .agent-row-name small{white-space:nowrap;flex-shrink:0}
 
-/* CORPORA workspace: a quiet, native-feeling shell. Guest documents keep their own design. */
-body.sapi-workspace {
+/* CORPORA workspace: shared appearance aligned with Sapiens4 ffeedba. */
+:root body.sapi-workspace {
   --sapi-bg:#f6f6f6; --sapi-surface:#fafafa; --sapi-white:#fff;
   --sapi-ink:#202020; --sapi-muted:#707070; --sapi-line:#e7e7e7;
   --sapi-pink:#202020; --sapi-violet:#454545; --sapi-accent:#d90068; --sapi-hover:#fbe7f0; --sapi-cyan:#4e6660;
@@ -244,185 +244,138 @@ body.sapi-workspace {
   --line:var(--sapi-line); --muted:var(--sapi-muted); --acid:var(--sapi-pink);
   font:13px/1.5 var(--sapi-font); -webkit-font-smoothing:antialiased;
 }
-[data-theme=dark] body.sapi-workspace {
+:root[data-theme=dark] body.sapi-workspace {
   --sapi-bg:#171717; --sapi-surface:#202020; --sapi-white:#212121;
   --sapi-ink:#ececec; --sapi-muted:#a0a0a0; --sapi-line:#333;
   --sapi-pink:#ececec; --sapi-violet:#ccc; --sapi-accent:#ff5aa5; --sapi-hover:#38242e; --sapi-cyan:#a7bdb6;
   --sapi-pink-tint:#303030; --sapi-purple-tint:#292929; --sapi-cyan-tint:#29312e;
 }
-:root .sapi-workspace .app { height:100dvh;min-height:400px; }
-:root .sapi-workspace .app-header { height:42px;min-height:42px;padding:0 14px;gap:10px;background:var(--sapi-bg);border-color:var(--line); }
-:root .sapi-workspace .wordmark { width:auto;gap:6px;color:var(--sapi-accent);border-radius:6px;padding:4px 5px;margin-left:-5px;transition:color .15s,background .15s,text-shadow .15s; }
-:root .sapi-workspace .wordmark .brand-name { font:600 17px var(--sapi-font);letter-spacing:-.7px; }
-:root .sapi-workspace .wordmark .brand-face { font-size:13px;color:var(--muted); }
-:root .sapi-workspace .wordmark .brand-ai { display:none; }
-:root .sapi-workspace .menu-button { width:26px;height:26px;color:var(--muted); }
-:root .sapi-workspace .pane-controls { border:0;gap:2px;padding:0;background:transparent; }
-:root .sapi-workspace .pane-toggle { height:28px;width:28px;border-radius:6px;background:transparent;color:var(--muted); }
-:root .sapi-workspace .pane-toggle[aria-pressed=true] { background:transparent;color:var(--muted); }
-:root .sapi-workspace .pane-toggle svg { width:17px;height:17px; }
-:root .sapi-workspace .pane-toggle .pane-fill { opacity:.12; }
-:root .sapi-workspace .pane-toggle[aria-pressed=false] { color:var(--muted);opacity:.55; }
-:root .sapi-workspace .theme-toggle { width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--ink);font-size:18px; }
-:root .sapi-workspace .pill { border:0;background:transparent;color:var(--muted);font-size:11px;min-height:28px;padding:4px 5px;border-radius:6px; }
-:root .sapi-workspace .pill>span:first-child { display:none; }
-:root .sapi-workspace .user-avatar { height:26px;width:26px;border:0;background:var(--sapi-pink-tint);color:var(--ink);font-size:10px;font-weight:500; }
-:root .sapi-workspace .sidebar { background:var(--sapi-bg);padding:14px 10px 0;border-color:var(--line); }
-:root .sapi-workspace .sidebar-heading { margin:0 7px 12px;min-height:24px; }
-:root .sapi-workspace .sidebar-heading h1 { font:600 12px var(--sapi-font);letter-spacing:0;color:var(--muted); }
-:root .sapi-workspace .sidebar-heading h1 span { font:400 10px var(--sapi-font);color:var(--muted);margin-left:6px; }
-:root .sapi-workspace .scope-switch { background:transparent;padding:0;gap:3px;margin-bottom:12px; }
-:root .sapi-workspace .scope-switch button { border-radius:6px;padding:4px 0;font-size:11px; }
-:root .sapi-workspace .scope-switch button.active { background:var(--sapi-pink-tint);color:var(--ink);box-shadow:none; }
-:root .sapi-workspace .search-field { border:0;border-radius:7px;background:var(--sapi-pink-tint);padding:6px 8px;margin-bottom:13px;gap:6px; }
-:root .sapi-workspace .search-field input { font-size:11px; }
-:root .sapi-workspace .search-field kbd { border:0;font:10px var(--sapi-font); }
-:root .sapi-workspace .agent-list { gap:3px;padding-top:0;min-height:0; }
-:root .sapi-workspace .agent-row { border:0;border-radius:7px;padding:8px 7px;gap:8px;min-height:53px;box-shadow:none; }
-:root .sapi-workspace .agent-row.active { background:var(--sapi-pink-tint);border:0;box-shadow:none; }
-:root .sapi-workspace .agent-row:hover:not(.active) { background:var(--sapi-purple-tint); }
-:root .sapi-workspace .agent-row .avatar { width:32px;height:32px;font:11px monospace;letter-spacing:-1.4px;border:1px solid var(--line);flex-shrink:0; }
-:root .sapi-workspace .avatar.main-sapi-avatar { box-shadow:none; }
-:root .sapi-workspace .agent-row .avatar::before,:root .sapi-workspace .agent-heading .avatar::before { display:none; }
-:root .sapi-workspace .agent-row .avatar .presence { width:7px;height:7px;border-width:1.5px;right:-1px;bottom:0; }
-:root .sapi-workspace .agent-row-name { display:block;font-size:12px;font-weight:500;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
-:root .sapi-workspace .agent-row-name small { display:none; }
-:root .sapi-workspace .agent-row-copy p { display:block;font-size:11px;line-height:1.4;letter-spacing:0;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted); }
-:root .sapi-workspace .main-sapi-row { margin-bottom:7px; }
-:root .sapi-workspace .main-sapi-row::after { bottom:-5px;left:7px;right:7px; }
-:root .sapi-workspace .sidebar-bottom { padding:10px 0;border:0; }
-:root .sapi-workspace .resource-card { padding:7px;border-radius:7px; }
-:root .sapi-workspace .resource-card strong { font:500 11px var(--sapi-font); }
-:root .sapi-workspace .computer-icon { font-size:16px; }
-:root .sapi-workspace .resource-card #resource-owner { margin:2px 0 0 23px;font-size:10px;color:var(--muted); }
-:root .sapi-workspace .conversation { background:var(--sapi-white);border-color:var(--line); }
-:root .sapi-workspace .agent-heading { height:57px;min-height:57px;padding:10px 20px;gap:10px; }
-:root .sapi-workspace .agent-heading .avatar { height:30px;width:30px;font:11px monospace;letter-spacing:-1.5px;border:1px solid var(--line); }
-:root .sapi-workspace .agent-heading h2 { font:600 13px/1.4 var(--sapi-font);letter-spacing:0;margin:0; }
-:root .sapi-workspace .agent-heading p { font-size:10px;color:var(--muted);margin-top:2px; }
-:root .sapi-workspace .status-dot { width:5px;height:5px;background:#7a9a83; }
-:root .sapi-workspace .conversation-tabs { padding:0 20px;gap:20px;border-bottom:1px solid var(--line);align-items:center; }
-:root .sapi-workspace .conversation-tabs>button { padding:8px 0;font-size:11px;border-bottom-width:1.5px; }
-:root .sapi-workspace .conversation-tabs>button.active { color:var(--ink);border-color:var(--ink); }
-:root .sapi-workspace .conversation-tabs button span:not(.log-dot) { background:var(--sapi-purple-tint);border:0;color:var(--muted);font-size:10px;border-radius:4px;padding:0 4px; }
-:root .sapi-workspace .activity-menu { position:relative;margin-left:auto;font-size:11px;color:var(--muted); }
-:root .sapi-workspace .activity-menu summary { cursor:pointer;list-style:none;padding:7px 0; }
-:root .sapi-workspace .activity-menu summary::-webkit-details-marker { display:none; }
-:root .sapi-workspace .activity-popover { position:absolute;right:0;top:32px;z-index:15;width:145px;padding:5px;background:var(--sapi-white);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 30px #0002; }
-:root .sapi-workspace .activity-popover button { width:100%;text-align:left;padding:8px;border:0;border-radius:5px;font-size:12px; }
-:root .sapi-workspace .activity-popover button:hover { background:var(--sapi-purple-tint); }
-:root .sapi-workspace .conversation-body { padding:22px 22px 12px; }
-:root .sapi-workspace .day-divider { font:10px var(--sapi-font);letter-spacing:.2px;color:var(--muted);margin:0 0 24px; }
-:root .sapi-workspace .day-divider::before,:root .sapi-workspace .day-divider::after { display:none; }
-:root .sapi-workspace .message { margin:0 0 28px; }
-:root .sapi-workspace .message.user { margin-left:24px; }
-:root .sapi-workspace .message-meta { font-size:11px;gap:6px;margin-bottom:7px;color:var(--muted); }
-:root .sapi-workspace .message-meta .avatar,:root .sapi-workspace .message-meta>span { display:none; }
-:root .sapi-workspace .message-meta strong { font-weight:500; }
-:root .sapi-workspace .message-meta .entity-mention { color:var(--muted);text-decoration:none; }
-:root .sapi-workspace .message-meta time { font-size:10px;opacity:0;transition:opacity .15s; }
-:root .sapi-workspace .message:hover .message-meta time,:root .sapi-workspace .message:focus-within .message-meta time { opacity:1; }
-:root .sapi-workspace .message-bubble { border:0;background:transparent;border-radius:0;box-shadow:none;padding:0;font:13px/1.65 var(--sapi-font);letter-spacing:0;color:var(--ink);overflow-wrap:anywhere; }
-:root .sapi-workspace .user .message-bubble { padding:12px 15px;background:var(--sapi-purple-tint);border:0;border-radius:14px; }
-:root .sapi-workspace .message-bubble p+p { margin-top:10px; }
-:root .sapi-workspace .message-details { margin-top:10px; }
-:root .sapi-workspace .message-details summary,:root .sapi-workspace .suggestion-menu summary { width:fit-content;cursor:pointer;font-size:11px;color:var(--muted); }
-:root .sapi-workspace .message-details .collapse-label { display:none; }
-:root .sapi-workspace .message-details[open] .expand-label { display:none; }
-:root .sapi-workspace .message-details[open] .collapse-label { display:inline; }
-:root .sapi-workspace .message-preview:has(+.message-details[open]) { display:none; }
-:root .sapi-workspace .message-full { margin-top:10px; }
-:root .sapi-workspace .entity-mention { color:var(--ink);text-decoration-color:var(--sapi-line);text-underline-offset:3px; }
-:root .sapi-workspace .message-bubble [data-artifact] { display:inline-block;margin:3px 0;border:1px solid var(--line);padding:4px 8px;border-radius:7px;text-decoration:none;background:var(--sapi-surface);font-size:12px; }
-:root .sapi-workspace .execution-card { border:1px solid var(--line);border-radius:8px;background:var(--sapi-surface); }
-:root .sapi-workspace .execution-title { background:transparent;border-color:var(--line);color:var(--ink);font-size:11px; }
-:root .sapi-workspace .execution-line { color:var(--muted);font-size:11px; }
-:root .sapi-workspace .artifact-link { border:1px solid var(--line);background:var(--sapi-surface);border-radius:9px;padding:9px; }
-:root .sapi-workspace .artifact-link strong { font-size:12px; }
-:root .sapi-workspace .artifact-link small,:root .sapi-workspace .message-foot { font-size:10px;color:var(--muted); }
-:root .sapi-workspace .file-icon { border:0;border-radius:5px;background:var(--sapi-purple-tint);color:var(--muted); }
-:root .sapi-workspace .suggestion-menu { margin:0 0 14px; }
-:root .sapi-workspace .suggestions { flex-wrap:wrap; }
-:root .sapi-workspace .suggestions button { border:1px solid var(--line);border-radius:7px;background:var(--sapi-white);color:var(--muted);padding:6px 8px;font-size:11px; }
-:root .sapi-workspace .composer-area { padding:10px 16px 13px;background:var(--sapi-white); }
-:root .sapi-workspace .composer { border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 6px #00000004;background:var(--sapi-surface); }
-:root .sapi-workspace .composer:focus-within { outline:0;border-color:var(--muted); }
-:root .sapi-workspace .composer textarea { font:13px/1.5 var(--sapi-font);min-height:44px;padding:13px 14px 5px; }
-:root .sapi-workspace .composer-bottom { padding:0 8px 8px; }
-:root .sapi-workspace .send-button { width:27px;height:27px;border:0;border-radius:50%;background:var(--ink);color:var(--sapi-white);font-size:19px; }
-:root .sapi-workspace .composer-hint { display:none; }
-:root .sapi-workspace .workspace { background:var(--sapi-white);border-color:var(--line); }
-:root .sapi-workspace .workspace-heading { height:36px;min-height:36px;padding:0 13px; }
-:root .sapi-workspace .workspace-owner { font-size:11px;color:var(--muted); }
-:root .sapi-workspace .workspace-owner .entity-mention { font-weight:500;text-decoration:none; }
-:root .sapi-workspace .browser-tabs-wrap { padding:0 8px 6px;gap:4px;background:var(--sapi-white);border-color:var(--line);min-height:35px; }
-:root .sapi-workspace .workspace-tab { border:0;border-radius:6px;background:transparent;box-shadow:none;min-width:80px;max-width:175px; }
-:root .sapi-workspace .workspace-tab.active { background:var(--sapi-purple-tint);border:0;box-shadow:none; }
-:root .sapi-workspace .workspace-tab .tab-select { font-size:11px;padding:6px 0; }
-:root .sapi-workspace .tab-icon { display:none; }
-:root .sapi-workspace .tab-close { color:var(--muted); }
-:root .sapi-workspace .browser-address-bar { background:var(--sapi-white);border-color:var(--line);padding:2px 9px; }
-:root .sapi-workspace .browser-address-bar input { font-size:10px;color:var(--muted); }
-:root .sapi-workspace .browser-address-bar .icon-button { height:23px;font-size:16px; }
-:root .sapi-workspace .workspace-footer { background:var(--sapi-white);font-size:10px;padding:3px 10px;min-height:20px;border-color:var(--line); }
-:root .sapi-workspace :is(.task-card,.schedule-card,.repo-item,.artifact-item,.connection-card) { border:1px solid var(--line);border-radius:10px;background:var(--sapi-white);padding:13px; }
-:root .sapi-workspace :is(.task-card h3,.schedule-card h3,.list-heading h3) { font:600 13px/1.5 var(--sapi-font);letter-spacing:0; }
-:root .sapi-workspace .task-card p { display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px; }
-:root .sapi-workspace .task-card-bottom { font-size:11px;flex-wrap:wrap; }
-:root .sapi-workspace .button { font:500 11px var(--sapi-font);border:1px solid var(--line);border-radius:7px;background:var(--sapi-white);min-height:28px; }
-:root .sapi-workspace .button.primary,:root .sapi-workspace .button.primary:hover { border-color:var(--ink);background:var(--ink);color:var(--sapi-white);box-shadow:none; }
-:root .sapi-workspace :is(.tag,.tag.gray,.tag.lilac) { border:0;border-radius:5px;background:var(--sapi-purple-tint);color:var(--muted);font-size:10px; }
-:root .sapi-workspace .log-row { border-color:var(--line); }
-:root .sapi-workspace .log-row::before { background:var(--muted);border-color:var(--sapi-white); }
-:root .sapi-workspace .log-row strong { font-size:12px;font-weight:500; }
-:root .sapi-workspace .log-row p,:root .sapi-workspace .schedule-card p { color:var(--muted);font-size:12px; }
-:root .sapi-workspace dialog { padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--sapi-white);box-shadow:0 20px 80px #0003;color:var(--ink); }
-:root .sapi-workspace dialog::backdrop { background:#0005;backdrop-filter:blur(5px); }
-:root .sapi-workspace #modal-content h2 { font:600 20px/1.4 var(--sapi-font);letter-spacing:-.4px; }
-:root .sapi-workspace :is(.form-stack input,.form-stack textarea,.form-stack select,.settings-row select) { background:var(--sapi-surface);border:1px solid var(--line);border-radius:7px;font-size:13px; }
-:root .sapi-workspace :is(.auto-choice,.tab-type) { border-color:var(--line);border-radius:9px;background:var(--sapi-surface); }
-:root .sapi-workspace .auto-choice.selected { border-color:var(--muted);background:var(--sapi-purple-tint); }
-:root .sapi-workspace .tiny-label { font:10px var(--sapi-font);letter-spacing:.5px;color:var(--muted); }
-:root .sapi-workspace .icon-button { border-radius:6px; }
-:root .sapi-workspace .icon-button:hover,:root .sapi-workspace .theme-toggle:hover { background:var(--sapi-purple-tint); }
-:root .sapi-workspace .toast { background:var(--ink);color:var(--sapi-white);border:0;border-radius:10px;font:12px/1.5 var(--sapi-font);box-shadow:0 6px 24px #0002; }
-@media(max-width:900px) and (min-width:601px) {
-  :root .sapi-workspace .main-grid { grid-template-columns:180px minmax(0,1fr)!important; }
-  :root .sapi-workspace .main-grid:has(.sidebar[hidden]) { grid-template-columns:0 minmax(0,1fr)!important; }
-}
-@media(max-width:600px) {
-  :root .sapi-workspace .app-header { display:flex;height:42px;min-height:42px;padding:0 9px;gap:5px; }
-  :root .sapi-workspace .wordmark .brand-name { font-size:16px; }
-  :root .sapi-workspace .wordmark .brand-face,:root .sapi-workspace .menu-button,:root .sapi-workspace .pill { display:none; }
-  :root .sapi-workspace .sidebar { flex:0 0 183px;min-height:183px;max-height:183px;padding:8px 10px 0; }
-  :root .sapi-workspace .sidebar-heading { margin-bottom:5px; }
-  :root .sapi-workspace .scope-switch { margin-bottom:5px; }
-  :root .sapi-workspace .search-field { margin-bottom:5px; }
-  :root .sapi-workspace .agent-list { min-height:46px;gap:4px; }
-  :root .sapi-workspace .agent-row { width:165px;min-width:165px;padding:5px; }
-  :root .sapi-workspace .main-sapi-row { margin:0; }
-  :root .sapi-workspace .main-sapi-row::after { display:none; }
-  :root .sapi-workspace .sidebar-bottom { padding:0; }
-  :root .sapi-workspace .resource-card { padding:3px 5px; }
-  :root .sapi-workspace .resource-card #resource-owner { margin:0;font-size:10px; }
-  :root .sapi-workspace .conversation { flex:1 0 560px;min-height:440px; }
-  :root .sapi-workspace .conversation-body { padding:18px; }
-  :root .sapi-workspace .composer textarea { font-size:16px; }
-  :root .sapi-workspace .main-grid[data-visible-panes="1"]>.sidebar { min-height:0;max-height:none;flex:1; }
-  :root .sapi-workspace .main-grid[data-visible-panes="1"]>.conversation,:root .sapi-workspace .main-grid[data-visible-panes="1"]>.workspace { flex:1;min-height:0; }
-}
+:root body.sapi-workspace .app { height:100dvh;min-height:400px; }
+:root body.sapi-workspace .app-header { height:42px;min-height:42px;padding:0 14px;gap:10px;background:var(--sapi-bg);border-color:var(--line); }
+:root body.sapi-workspace .wordmark { width:auto;gap:6px;color:var(--sapi-accent);border-radius:6px;padding:4px 5px;margin-left:-5px;transition:color .15s,background .15s,text-shadow .15s; }
+:root body.sapi-workspace .wordmark .brand-name { font:600 17px var(--sapi-font);letter-spacing:-.7px; }
+:root body.sapi-workspace .wordmark .brand-face { font-size:13px;color:var(--muted); }
+:root body.sapi-workspace .menu-button { width:26px;height:26px;color:var(--muted); }
+:root body.sapi-workspace .pane-controls { border:0;gap:2px;padding:0;background:transparent; }
+:root body.sapi-workspace .pane-toggle { height:28px;width:28px;border-radius:6px;background:transparent;color:var(--muted); }
+:root body.sapi-workspace .pane-toggle[aria-pressed=true] { background:transparent;color:var(--muted); }
+:root body.sapi-workspace .pane-toggle svg { width:17px;height:17px; }
+:root body.sapi-workspace .pane-toggle .pane-fill { opacity:.12; }
+:root body.sapi-workspace .pane-toggle[aria-pressed=false] { color:var(--muted);opacity:.55; }
+:root body.sapi-workspace .theme-toggle { width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--ink);font-size:18px; }
+:root body.sapi-workspace .pill { border:0;background:transparent;color:var(--muted);font-size:11px;min-height:28px;padding:4px 5px;border-radius:6px; }
+:root body.sapi-workspace .user-avatar { height:26px;width:26px;border:0;background:var(--sapi-pink-tint);color:var(--ink);font-size:10px;font-weight:500; }
+:root body.sapi-workspace .sidebar { background:var(--sapi-bg);padding:14px 10px 0;border-color:var(--line); }
+:root body.sapi-workspace .sidebar-heading { margin:0 7px 12px;min-height:24px; }
+:root body.sapi-workspace .sidebar-heading h1 { font:600 12px var(--sapi-font);letter-spacing:0;color:var(--muted); }
+:root body.sapi-workspace .sidebar-heading h1 span { font:400 10px var(--sapi-font);color:var(--muted);margin-left:6px; }
+:root body.sapi-workspace .scope-switch { background:transparent;padding:0;gap:3px;margin-bottom:12px; }
+:root body.sapi-workspace .scope-switch button { border-radius:6px;padding:4px 0;font-size:11px; }
+:root body.sapi-workspace .scope-switch button.active { background:var(--sapi-pink-tint);color:var(--ink);box-shadow:none; }
+:root body.sapi-workspace .search-field { border:0;border-radius:7px;background:var(--sapi-pink-tint);padding:6px 8px;margin-bottom:13px;gap:6px; }
+:root body.sapi-workspace .search-field input { font-size:11px; }
+:root body.sapi-workspace .search-field kbd { border:0;font:10px var(--sapi-font); }
+:root body.sapi-workspace .agent-list { gap:3px;padding-top:0;min-height:0; }
+:root body.sapi-workspace .agent-row { border:0;border-radius:7px;padding:8px 7px;gap:8px;min-height:53px;box-shadow:none; }
+:root body.sapi-workspace .agent-row.active { background:var(--sapi-pink-tint);border:0;box-shadow:none; }
+:root body.sapi-workspace .agent-row:hover:not(.active) { background:var(--sapi-purple-tint); }
+:root body.sapi-workspace .agent-row .avatar { width:40px;height:40px;font:13.5px monospace;letter-spacing:-1.7px;border:1px solid var(--line);flex-shrink:0; }
+:root body.sapi-workspace .avatar.main-sapi-avatar { box-shadow:0 0 0 2px var(--sapi-white),0 0 0 4px var(--sapi-accent); }
+:root body.sapi-workspace .agent-row .avatar::before,:root body.sapi-workspace .agent-heading .avatar::before { display:none; }
+:root body.sapi-workspace .agent-row .avatar .presence { width:10.5px;height:10.5px;border-width:1.5px;right:-1px;bottom:0; }
+:root body.sapi-workspace .agent-row-name { display:block;font-size:15px;font-weight:500;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+:root body.sapi-workspace .agent-row-copy p { display:block;font-size:13.5px;line-height:1.4;letter-spacing:0;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted); }
+:root body.sapi-workspace .main-sapi-row { margin-bottom:7px; }
+:root body.sapi-workspace .main-sapi-row::after { bottom:-5px;left:7px;right:7px; }
+:root body.sapi-workspace .sidebar-bottom { padding:10px 0;border:0; }
+:root body.sapi-workspace .resource-card { padding:7px;border-radius:7px; }
+:root body.sapi-workspace .resource-card strong { font:500 11px var(--sapi-font); }
+:root body.sapi-workspace .computer-icon { font-size:16px; }
+:root body.sapi-workspace .resource-card #resource-owner { margin:2px 0 0 23px;font-size:10px;color:var(--muted); }
+:root body.sapi-workspace .conversation { background:var(--sapi-white);border-color:var(--line); }
+:root body.sapi-workspace .agent-heading { height:69px;min-height:69px;padding:10px 20px;gap:10px; }
+:root body.sapi-workspace .agent-heading .avatar { height:45px;width:45px;font:16.5px monospace;letter-spacing:-2.25px;flex-shrink:0;border:1px solid var(--line); }
+:root body.sapi-workspace .agent-heading h2 { font:600 13px/1.4 var(--sapi-font);letter-spacing:0;margin:0; }
+:root body.sapi-workspace .agent-heading p { font-size:10px;color:var(--muted);margin-top:2px; }
+:root body.sapi-workspace .status-dot { width:5px;height:5px;background:#7a9a83; }
+:root body.sapi-workspace .conversation-tabs { padding:0 20px;gap:20px;border-bottom:1px solid var(--line);align-items:center; }
+:root body.sapi-workspace .conversation-tabs>button { padding:8px 0;font-size:11px;border-bottom-width:1.5px; }
+:root body.sapi-workspace .conversation-tabs>button.active { color:var(--ink);border-color:var(--ink); }
+:root body.sapi-workspace .conversation-tabs button span:not(.log-dot) { background:var(--sapi-purple-tint);border:0;color:var(--muted);font-size:10px;border-radius:4px;padding:0 4px; }
+/* Opening a chat and restoring its position must jump without animation. */
+:root body.sapi-workspace .conversation-body { padding:22px 22px 12px;scroll-behavior:auto; }
+:root body.sapi-workspace .day-divider { font:10px var(--sapi-font);letter-spacing:.2px;color:var(--muted);margin:0 0 24px; }
+:root body.sapi-workspace .day-divider::before,:root body.sapi-workspace .day-divider::after { display:none; }
+:root body.sapi-workspace .message { margin:0 0 28px; }
+:root body.sapi-workspace .message.user { margin-left:24px; }
+:root body.sapi-workspace .message-meta { font-size:11px;gap:6px;margin-bottom:7px;color:var(--muted); }
+:root body.sapi-workspace .message-meta strong { font-weight:500; }
+:root body.sapi-workspace .message-meta .entity-mention { color:var(--muted);text-decoration:none; }
+:root body.sapi-workspace .message-bubble { border:0;background:transparent;border-radius:0;box-shadow:none;padding:0;font:13px/1.65 var(--sapi-font);letter-spacing:0;color:var(--ink);overflow-wrap:anywhere; }
+:root body.sapi-workspace .user .message-bubble { padding:12px 15px;background:var(--sapi-purple-tint);border:0;border-radius:14px; }
+:root body.sapi-workspace .message-bubble p+p { margin-top:10px; }
+:root body.sapi-workspace .entity-mention { color:var(--ink);text-decoration-color:var(--sapi-line);text-underline-offset:3px; }
+:root body.sapi-workspace .message-bubble [data-artifact] { display:inline-block;margin:3px 0;border:1px solid var(--line);padding:4px 8px;border-radius:7px;text-decoration:none;background:var(--sapi-surface);font-size:12px; }
+:root body.sapi-workspace .execution-card { border:1px solid var(--line);border-radius:8px;background:var(--sapi-surface); }
+:root body.sapi-workspace .execution-title { background:transparent;border-color:var(--line);color:var(--ink);font-size:11px; }
+:root body.sapi-workspace .execution-line { color:var(--muted);font-size:11px; }
+:root body.sapi-workspace .artifact-link { border:1px solid var(--line);background:var(--sapi-surface);border-radius:9px;padding:9px; }
+:root body.sapi-workspace .artifact-link strong { font-size:12px; }
+:root body.sapi-workspace .artifact-link small,:root body.sapi-workspace .message-foot { font-size:10px;color:var(--muted); }
+:root body.sapi-workspace .file-icon { border:0;border-radius:5px;background:var(--sapi-purple-tint);color:var(--muted); }
+:root body.sapi-workspace .suggestions { flex-wrap:wrap; }
+:root body.sapi-workspace .suggestions button { border:1px solid var(--line);border-radius:7px;background:var(--sapi-white);color:var(--muted);padding:6px 8px;font-size:11px; }
+:root body.sapi-workspace .composer-area { padding:10px 16px 13px;background:var(--sapi-white); }
+:root body.sapi-workspace .composer { border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 6px #00000004;background:var(--sapi-surface); }
+:root body.sapi-workspace .composer:focus-within { outline:0;border-color:var(--muted); }
+:root body.sapi-workspace .composer textarea { font:13px/1.5 var(--sapi-font);min-height:44px;padding:13px 14px 5px; }
+:root body.sapi-workspace .composer-bottom { padding:0 8px 8px; }
+:root body.sapi-workspace .send-button { width:27px;height:27px;border:0;border-radius:50%;background:var(--ink);color:var(--sapi-white);font-size:19px; }
+:root body.sapi-workspace .workspace { background:var(--sapi-white);border-color:var(--line); }
+:root body.sapi-workspace .workspace-heading { height:36px;min-height:36px;padding:0 13px; }
+:root body.sapi-workspace .workspace-owner { font-size:11px;color:var(--muted); }
+:root body.sapi-workspace .workspace-owner .entity-mention { font-weight:500;text-decoration:none; }
+:root body.sapi-workspace .browser-tabs-wrap { padding:0 8px 6px;gap:4px;background:var(--sapi-white);border-color:var(--line);min-height:35px; }
+:root body.sapi-workspace .workspace-tab { border:0;border-radius:6px;background:transparent;box-shadow:none;min-width:80px;max-width:175px; }
+:root body.sapi-workspace .workspace-tab.active { background:var(--sapi-purple-tint);border:0;box-shadow:none; }
+:root body.sapi-workspace .workspace-tab .tab-select { font-size:11px;padding:6px 0; }
+:root body.sapi-workspace .tab-close { color:var(--muted); }
+:root body.sapi-workspace .browser-address-bar { background:var(--sapi-white);border-color:var(--line);padding:2px 9px; }
+:root body.sapi-workspace .browser-address-bar input { font-size:10px;color:var(--muted); }
+:root body.sapi-workspace .browser-address-bar .icon-button { height:23px;font-size:16px; }
+:root body.sapi-workspace .workspace-footer { background:var(--sapi-white);font-size:10px;padding:3px 10px;min-height:20px;border-color:var(--line); }
+:root body.sapi-workspace :is(.task-card,.schedule-card,.repo-item,.artifact-item,.connection-card) { border:1px solid var(--line);border-radius:10px;background:var(--sapi-white);padding:13px; }
+:root body.sapi-workspace :is(.task-card h3,.schedule-card h3,.list-heading h3) { font:600 13px/1.5 var(--sapi-font);letter-spacing:0; }
+:root body.sapi-workspace .task-card-bottom { font-size:11px;flex-wrap:wrap; }
+:root body.sapi-workspace .button { font:500 11px var(--sapi-font);border:1px solid var(--line);border-radius:7px;background:var(--sapi-white);min-height:28px; }
+:root body.sapi-workspace .button.primary,:root body.sapi-workspace .button.primary:hover { border-color:var(--ink);background:var(--ink);color:var(--sapi-white);box-shadow:none; }
+:root body.sapi-workspace :is(.tag,.tag.gray,.tag.lilac) { border:0;border-radius:5px;background:var(--sapi-purple-tint);color:var(--muted);font-size:10px; }
+:root body.sapi-workspace .log-row { border-color:var(--line); }
+:root body.sapi-workspace .log-row::before { background:var(--muted);border-color:var(--sapi-white); }
+:root body.sapi-workspace .log-row strong { font-size:12px;font-weight:500; }
+:root body.sapi-workspace .log-row p,:root body.sapi-workspace .schedule-card p { color:var(--muted);font-size:12px; }
+:root body.sapi-workspace dialog { padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--sapi-white);box-shadow:0 20px 80px #0003;color:var(--ink); }
+:root body.sapi-workspace dialog::backdrop { background:#0005;backdrop-filter:blur(5px); }
+:root body.sapi-workspace #modal-content h2 { font:600 20px/1.4 var(--sapi-font);letter-spacing:-.4px; }
+:root body.sapi-workspace :is(.form-stack input,.form-stack textarea,.form-stack select,.settings-row select) { background:var(--sapi-surface);border:1px solid var(--line);border-radius:7px;font-size:13px; }
+:root body.sapi-workspace :is(.auto-choice,.tab-type) { border-color:var(--line);border-radius:9px;background:var(--sapi-surface); }
+:root body.sapi-workspace .auto-choice.selected { border-color:var(--muted);background:var(--sapi-purple-tint); }
+:root body.sapi-workspace .tiny-label { font:10px var(--sapi-font);letter-spacing:.5px;color:var(--muted); }
+:root body.sapi-workspace .icon-button { border-radius:6px; }
+:root body.sapi-workspace .icon-button:hover,:root body.sapi-workspace .theme-toggle:hover { background:var(--sapi-purple-tint); }
+:root body.sapi-workspace .toast { background:var(--ink);color:var(--sapi-white);border:0;border-radius:10px;font:12px/1.5 var(--sapi-font);box-shadow:0 6px 24px #0002; }
 /* Neutral control colors also win over legacy dark-theme button variants. */
-:root[data-theme] .sapi-workspace .send-button { background:var(--ink);color:var(--sapi-white);border:0; }
-:root .sapi-workspace :is(.lock-banner,.computer-window,.computer-toolbar,.computer-caption,.mock-rail,.posted-card,.address,.doc-callout) { background:var(--sapi-surface);border-color:var(--line);color:var(--ink);border-radius:8px;box-shadow:none; }
-:root .sapi-workspace :is(.lock-banner p,.lock-banner .tag,.computer-caption span:first-child,.doc-page p,.doc-page li,.log-detail) { color:var(--muted); }
-:root .sapi-workspace .lock-banner .tag { background:var(--sapi-purple-tint);border-color:var(--line); }
-:root .sapi-workspace .log-detail { font-size:12px;line-height:1.6;overflow-wrap:anywhere; }
-:root .sapi-workspace .settings-row { border-color:var(--line); }
-:root .sapi-workspace .screen-cursor span { background:var(--ink);color:var(--sapi-white); }
-:root .sapi-workspace .screen-cursor .entity-mention { color:inherit; }
+:root[data-theme] body.sapi-workspace .send-button { background:var(--ink);color:var(--sapi-white);border:0; }
+:root body.sapi-workspace :is(.lock-banner,.computer-window,.computer-toolbar,.computer-caption,.mock-rail,.posted-card,.address,.doc-callout) { background:var(--sapi-surface);border-color:var(--line);color:var(--ink);border-radius:8px;box-shadow:none; }
+:root body.sapi-workspace :is(.lock-banner p,.lock-banner .tag,.computer-caption span:first-child,.doc-page p,.doc-page li,.log-detail) { color:var(--muted); }
+:root body.sapi-workspace .lock-banner .tag { background:var(--sapi-purple-tint);border-color:var(--line); }
+:root body.sapi-workspace .log-detail { font-size:12px;line-height:1.6;overflow-wrap:anywhere; }
+:root body.sapi-workspace .settings-row { border-color:var(--line); }
+:root body.sapi-workspace .screen-cursor span { background:var(--ink);color:var(--sapi-white); }
+:root body.sapi-workspace .screen-cursor .entity-mention { color:inherit; }
 
 /* Color belongs to Sapi identities and interaction, while the shell stays neutral. */
-:root .sapi-workspace .avatar:not(.group-avatar) {
+:root body.sapi-workspace .avatar:not(.group-avatar) {
   background:radial-gradient(circle at 30% 25%,#ffffff66,transparent 65%),var(--avatar-color);
   border-color:color-mix(in srgb,var(--avatar-color) 72%,#343442);color:#272137;
 }
@@ -440,8 +393,34 @@ body.sapi-workspace {
 :root[data-theme] body.sapi-workspace :is(.send-button,.button.primary):not(:disabled):hover {
   background:#d90068;color:#fff;border-color:#d90068;
 }
+
+/* Shared shell details, aligned with Sapiens4 ffeedba. */
+:root body.sapi-workspace #profile-button { min-width:60px;height:28px;padding:0 8px;border:0;border-radius:6px;background:transparent;font-size:11px;color:var(--muted); }
+:root body.sapi-workspace .conversation-tabs { gap:16px; }
+:root body.sapi-workspace .agent-row-name { display:grid;grid-template-columns:minmax(0,1fr) max-content;align-items:baseline;column-gap:6px;white-space:normal;overflow-wrap:anywhere; }
+:root body.sapi-workspace .agent-row-name small { display:block;font:11px var(--sapi-font);margin:0;text-align:right;white-space:nowrap; }
+:root body.sapi-workspace .message-meta time { font-size:10px;color:var(--muted); }
+:root body.sapi-workspace .message-meta .avatar { width:20px;height:20px;font-size:9px; }
+:root body.sapi-workspace .message-bubble .chat-link { color:var(--sapi-accent); }
 @media(max-width:600px) {
-  :root .sapi-workspace .sidebar { flex-basis:193px;min-height:193px;max-height:193px; }
-  :root .sapi-workspace .agent-list { min-height:55px; }
-  :root .sapi-workspace .agent-row { width:190px;min-width:190px; }
+  :root body.sapi-workspace .composer textarea { font-size:16px; }
+  :root body.sapi-workspace .app-header { padding:0 9px;gap:5px; }
 }
+@media(max-width:450px) {
+  :root body.sapi-workspace .app-header { height:72px;min-height:72px; }
+}
+:root[data-theme] body.sapi-workspace #profile-button:hover { color:var(--sapi-accent);background:var(--sapi-hover); }
+
+/* Keep demo autonomy controls functional; omit decorative glyphs. */
+:root body.sapi-workspace #autonomy-button > span:not(#autonomy-label) { display:none; }
+/* The composer supplies the focus indicator for its text field. */
+:root[data-theme] body.sapi-workspace .composer textarea:is(:hover,:focus,:focus-visible) { outline:none;box-shadow:none; }
+/* Search uses a single focus indicator around the complete control. */
+:root[data-theme] body.sapi-workspace .search-field:focus-within { outline:none;box-shadow:inset 0 0 0 1px var(--sapi-accent); }
+:root[data-theme] body.sapi-workspace .search-field input:is(:hover,:focus,:focus-visible) { outline:none;box-shadow:none; }
+
+:root body.sapi-workspace .agent-heading > div { min-width:0;flex:1; }
+:root body.sapi-workspace .agent-heading :is(h2,.agent-role) { overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+:root body.sapi-workspace .conversation-tabs { overflow-x:auto;flex-shrink:0; }
+:root body.sapi-workspace .conversation-tabs button { white-space:nowrap; }
+:root body.sapi-workspace #profile-button { display:inline-flex;align-items:center;justify-content:center;gap:8px; }
