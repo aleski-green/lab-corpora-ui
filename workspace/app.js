@@ -97,12 +97,13 @@ function formatText(value){
     const name=match[0].replace(/^@/,'').toLowerCase();
     const a=state.agents.find(a=>a.name.toLowerCase()===name);
     const artifact=fixture.artifacts.find(item=>item.id.toLowerCase()===name.split(':')[0]);
-    result+=esc(text.slice(cursor,match.index))+(a?mention(a.id):artifact?`<button type="button" class="entity-mention" data-artifact="${esc(artifact.id)}">${esc(match[0])}</button>`:esc(match[0]));cursor=match.index+match[0].length;
+    result+=esc(text.slice(cursor,match.index))+(a?mention(a.id):artifact?`<button type="button" class="entity-mention" data-artifact="${esc(artifact.id)}">${esc(artifact.title)}</button>`:esc(match[0]));cursor=match.index+match[0].length;
   }
   return result+esc(text.slice(cursor));
 }
 function openChat(id){
   const a=state.agents.find(a=>a.id===id);if(!a)return;
+  if(location.hash==='#home:root'&&!isMainSapi(a))history.replaceState(null,'',location.pathname+location.search);
   state.drafts ??= {};state.drafts[state.selected]=$('#message-input').value;
   state.selected=id;state.panel='chat';state.panes.chat=true;a.unread=false;
   if(state.scope!=='all')state.scope=isGroup(a)?'groups':'sapis';
@@ -130,7 +131,7 @@ function renderPanes(){
   const p=state.panes;
   const count=Object.values(p).filter(Boolean).length;
   $('.main-grid').dataset.visiblePanes=count;
-  $('.main-grid').style.gridTemplateColumns=[p.sidebar?(count===1?'minmax(0,1fr)':'clamp(205px,18vw,250px)'):'0px',p.chat?'minmax(300px,1fr)':'0px',p.workspace?'minmax(350px,1.2fr)':'0px'].join(' ');
+  $('.main-grid').style.gridTemplateColumns=[p.sidebar?(count===1?'minmax(0,1fr)':'clamp(200px,18vw,230px)'):'0px',p.chat?'minmax(320px,0.95fr)':'0px',p.workspace?'minmax(350px,1.2fr)':'0px'].join(' ');
 }
 function renderGlobal(){
   $('#autonomy-label').textContent={auto:'Autonomous',assist:'Assisted',paused:'Paused'}[state.mode];
@@ -146,15 +147,24 @@ function renderSidebar(){
   $$('[data-scope]').forEach(b=>{b.classList.toggle('active',b.dataset.scope===state.scope);b.setAttribute('aria-pressed',b.dataset.scope===state.scope);});
   const list=state.agents.filter(a=>isMainSapi(a)||((state.scope==='all'||(state.scope==='groups'?isGroup(a):!isGroup(a)))&&`${a.name} ${a.role}`.toLowerCase().includes(search.toLowerCase())))
     .sort((a,b)=>Number(isMainSapi(b))-Number(isMainSapi(a))||(b.lastActivity||0)-(a.lastActivity||0));
-  $('#agent-list').innerHTML=list.map(a=>`<button class="agent-row ${a.id===state.selected?'active':''} ${isMainSapi(a)?'main-sapi-row':''}" data-agent="${esc(a.id)}" aria-pressed="${a.id===state.selected}">${avatar(a,isMainSapi(a)?'main-sapi-avatar':'',true)}<span class="agent-row-copy"><span class="agent-row-name">${esc(a.name)}<small>${esc(new Date(a.lastActivity).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',hour12:false}))}</small></span><p>${esc(a.preview)}</p></span>${a.unread&&!isMainSapi(a)?'<span class="unread-dot"></span>':''}</button>`).join('');
+  $('#agent-list').innerHTML=list.map(a=>`<button title="${esc(a.role)} — ${esc(a.preview)}" class="agent-row ${a.id===state.selected?'active':''} ${isMainSapi(a)?'main-sapi-row':''}" data-agent="${esc(a.id)}" aria-pressed="${a.id===state.selected}">${avatar(a,isMainSapi(a)?'main-sapi-avatar':'',true)}<span class="agent-row-copy"><span class="agent-row-name">${esc(a.name)}<small>${esc(new Date(a.lastActivity).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',hour12:false}))}</small></span><p>${esc(a.preview)}</p></span>${a.unread&&!isMainSapi(a)?'<span class="unread-dot"></span>':''}</button>`).join('');
 }
-function renderAgentHeader(){const a=selected();$('#agent-heading').innerHTML=`${avatar(a,isMainSapi(a)?'large main-sapi-avatar':'large')}<div><h2>${esc(a.name)} <span class="muted" style="font-weight:400">/ ${esc(a.role.split(' ·')[0])}</span></h2><p><span class="status-dot"></span> ${state.mode==='paused'?'Paused':a.autonomy==='auto'?'Autonomous':'Assisted'}</p></div><button class="icon-button" data-action="agent-settings" aria-label="Agent settings">···</button>`;$('#message-input').placeholder=`Message ${a.name}…`;$$('[data-panel]').forEach(b=>{b.classList.toggle('active',b.dataset.panel===state.panel);b.setAttribute('aria-pressed',b.dataset.panel===state.panel);});$('.composer-hint span').textContent=state.mode==='paused'?'Ⅱ Team paused':a.autonomy==='auto'?'Autonomous':'Assisted';}
+function renderAgentHeader(){const a=selected();$('#agent-heading').innerHTML=`${avatar(a,isMainSapi(a)?'large main-sapi-avatar':'large')}<div><h2 title="${esc(a.role)}">${esc(a.name)}</h2><p><span class="status-dot"></span> ${state.mode==='paused'?'Paused':a.autonomy==='auto'?'Autonomous':'Assisted'}</p></div><button class="icon-button" data-action="agent-settings" aria-label="Agent settings">···</button>`;$('#message-input').placeholder=`Message ${a.name}…`;$$('[data-panel]').forEach(b=>{b.classList.toggle('active',b.dataset.panel===state.panel);b.setAttribute('aria-pressed',b.dataset.panel===state.panel);});const more=$('.activity-menu summary');if(more)more.firstChild.textContent=({log:'Activity ',cron:'Schedules '})[state.panel]||'More ';$('.composer-hint span').textContent=state.mode==='paused'?'Ⅱ Team paused':a.autonomy==='auto'?'Autonomous':'Assisted';}
 function getMessages(id){if(!state.messages[id]){const a=agent(id);state.messages[id]=[{role:'assistant',time:'09:35',text:({jared:'Good morning, Alex. The team is making progress on Brightside. Aaron has the technical work, Designers are up next on the shared computer, and I’m keeping the bigger picture together.\n\nWhat would you like to move forward today?',designers:'We’ve got the kickoff deck on our list. We’re next in line for the shared computer—once Aaron wraps up, we’ll take it from there.',slack:'I’m keeping an eye on team conversations and collecting the updates that matter. The Brightside recap is ready for a final pass.',scout:'Ready to explore. Give me an account, a question, or a hunch, and I’ll turn it into something useful.'})[id]||`Hi, I’m ${a.name}. Give me a task and I’ll get started.`}];}return state.messages[id];}
 function executionCard(){return `<div class="execution-card"><div class="execution-title">Actions <span>3 / 3</span></div><div class="execution-line"><span class="check">✓</span> Read meeting notes & account context <time>2s</time></div><div class="execution-line"><span class="check">✓</span> Verify Slack + SSO release <time>4s</time></div><div class="execution-line"><span class="check">✓</span> Share update with Brightside <time>3s</time></div></div>`;}
+function messageContent(message, label='message') {
+  const text=String(message.text || '');
+  const paragraphs=value=>value.split('\n\n').map(p=>`<p>${formatText(p).replace(/\n/g,'<br>')}</p>`).join('');
+  if(text.length<=560)return paragraphs(text);
+  const first=text.split('\n\n')[0];
+  const assignment=state.tasks.find(task=>task.reference?.replace(/^@/,'')===first.replace(/^Assignment /,''));
+  const preview=assignment?assignment.title:first.length<=240?first:text.slice(0,220).replace(/\s+\S*$/,'')+'…';
+  return `<div class="message-preview">${paragraphs(preview)}</div><details class="message-details"><summary><span class="expand-label">Show full ${esc(label)}</span><span class="collapse-label">Show less</span></summary><div class="message-full">${paragraphs(text)}</div></details>`;
+}
 function renderConversation(){const host=$('#conversation-body');$('#composer-area').hidden=state.panel!=='chat';renderAgentHeader();renderGlobal();
-  if(state.panel==='chat'){const a=selected();const messages=getMessages(a.id);host.innerHTML=`<div class="day-divider">SAMPLE WORKSPACE</div>`+messages.map(m=>`<div class="message ${m.role==='user'?'user':''}"><div class="message-meta">${m.role==='assistant'?avatar(a,'mini'):'<span>↗</span>'}<strong>${m.role==='user'?'You':mention(a.id)}</strong><time>${esc(m.time)}</time></div><div class="message-bubble">${m.text.split('\n\n').map(p=>`<p>${formatText(p).replace(/\n/g,'<br>')}</p>`).join('')}${m.execution?executionCard():''}${m.artifact?'<button class="artifact-link" data-action="open-brief"><span class="file-icon">▤</span><span><strong>Brightside · Kickoff brief</strong><small>DOCUMENT · JUST UPDATED</small></span><span>↗</span></button>':''}</div>${m.artifact?'<div class="message-foot">✓ Context saved to the workspace</div>':''}</div>`).join('')+(pending.has(a.id)?`<div class="typing" role="status">${esc(a.name)} is working through it ···</div>`:'')+`<div class="suggestions"><button data-suggest="Show me the next steps">What’s next? ↗</button><button data-suggest="Prepare a progress report">Make a progress report ↗</button></div>`;renderAttachment();}
+  if(state.panel==='chat'){const a=selected();const messages=getMessages(a.id);host.innerHTML=`<div class="day-divider">SAMPLE WORKSPACE</div>`+messages.map(m=>`<div class="message ${m.role==='user'?'user':''}"><div class="message-meta">${m.role==='assistant'?avatar(a,'mini'):'<span>↗</span>'}<strong>${m.role==='user'?'You':mention(a.id)}</strong><time>${esc(m.time)}</time></div><div class="message-bubble">${messageContent(m)}${m.execution?`<details class="message-details"><summary>3 actions completed</summary>${executionCard()}</details>`:''}${m.artifact?'<button class="artifact-link" data-action="open-brief"><span class="file-icon">▤</span><span><strong>Brightside · Kickoff brief</strong><small>DOCUMENT · JUST UPDATED</small></span><span>↗</span></button>':''}</div>${m.artifact?'<div class="message-foot">✓ Context saved to the workspace</div>':''}</div>`).join('')+(pending.has(a.id)?`<div class="typing" role="status">${esc(a.name)} is working through it ···</div>`:'')+`<details class="suggestion-menu"><summary>Suggested prompts</summary><div class="suggestions"><button data-suggest="Show me the next steps">What’s next? ↗</button><button data-suggest="Prepare a progress report">Make a progress report ↗</button></div></details>`;renderAttachment();}
   if(state.panel==='tasks')host.innerHTML=`<div class="list-heading"><h3>${esc(selected().name)}’s tasks</h3><button class="button" data-action="new-task">＋ Task</button></div>`+state.tasks.filter(t=>t.agent===state.selected).map(taskCard).join('')+(state.tasks.some(t=>t.agent===state.selected)?'':'<div class="empty">A clean slate. Add the first task.</div>');
-  if(state.panel==='log')host.innerHTML=`<div class="list-heading"><h3>Activity log</h3><span class="tag">SIMULATED</span></div>`+state.logs.filter(l=>l.agent===state.selected).map(l=>`<div class="log-row"><time>${esc(l.time)}</time><strong>${esc(l.title)}</strong><p>${formatText(l.detail)}</p></div>`).join('')+(state.logs.some(l=>l.agent===state.selected)?'':'<div class="empty">New activity will appear here.</div>');
+  if(state.panel==='log')host.innerHTML=`<div class="list-heading"><h3>Activity log</h3><span class="tag">SIMULATED</span></div>`+state.logs.filter(l=>l.agent===state.selected).map(l=>`<div class="log-row"><time>${esc(l.time)}</time><strong>${esc(l.title)}</strong><div class="log-detail">${messageContent({text:l.detail},'entry')}</div></div>`).join('')+(state.logs.some(l=>l.agent===state.selected)?'':'<div class="empty">New activity will appear here.</div>');
   if(state.panel==='cron')host.innerHTML=`<div class="list-heading"><h3>Schedules</h3><button class="button" data-action="new-schedule">＋ Schedule</button></div><p class="form-hint" style="margin-bottom:17px">Demo schedules. Use “Run now” to preview an execution.</p>`+state.schedules.filter(s=>s.agent===state.selected).map(s=>`<div class="schedule-card"><div class="task-card-top"><h3>${esc(s.title)}</h3><button class="switch ${s.enabled?'':'off'}" role="switch" aria-checked="${s.enabled}" aria-label="Enable ${esc(s.title)}" data-toggle-schedule="${s.id}"></button></div><p>${esc(s.prompt)}</p><span class="schedule-meta">↻ ${esc(s.frequency)}</span><div class="actions"><small class="muted">${s.runs} runs · ${s.enabled?'Active':'Paused'}</small><button class="button soft" data-run-schedule="${s.id}">▷ Run now</button><button class="icon-button" data-edit-schedule="${s.id}" aria-label="Edit ${esc(s.title)}">···</button></div></div>`).join('')+(state.schedules.some(s=>s.agent===state.selected)?'':'<div class="empty">Set up a recurring task for this Sapi.</div>');
 }
 function taskCard(t){const a=agent(t.agent);return `<article class="task-card"><button class="task-open" data-task="${esc(t.id)}"><div class="task-card-top"><span class="tag ${t.status==='Queued'?'gray':t.status==='In progress'?'amber':''}">${t.status==='Done'?'✓ ':t.status==='In progress'?'◌ ':''}${esc(t.status)}</span><span class="muted">↗</span></div><h3>${esc(t.title)}</h3><p>${esc(t.description)}</p>${t.status==='In progress'?`<div class="progress-track" role="progressbar" aria-label="Task progress" aria-valuenow="${t.progress}" aria-valuemin="0" aria-valuemax="100"><span style="width:${t.progress}%"></span></div>`:''}</button><div class="task-card-bottom">${avatar(a,'mini')} ${mention(a.id)}<span class="tag gray">${esc(t.case || (t.status==='Done'?'Completed':'Assigned work'))}</span></div></article>`;}
@@ -243,7 +253,7 @@ document.addEventListener('click',e=>{
   if(d.mention){openChat(d.mention);return;}
   if(d.agent){openChat(d.agent);return;}
   if(d.scope){state.scope=d.scope;renderSidebar();save();return;}
-  if(d.panel){state.panel=d.panel;renderConversation();save();return;}
+  if(d.panel){e.target.closest('details')?.removeAttribute('open');state.panel=d.panel;renderConversation();save();return;}
   if(d.tab){state.activeTab=d.tab;renderTabs();renderWorkspace();save();return;}
   if(d.closeTab){const i=state.tabs.findIndex(t=>t.id===d.closeTab);if(i<0)return;state.tabs.splice(i,1);if(state.activeTab===d.closeTab)state.activeTab=state.tabs[Math.max(0,i-1)]?.id||null;closeModal();renderTabs();renderWorkspace();save();return;}
   if(d.newTabType){openTab(d.newTabType);closeModal();return;}
@@ -300,10 +310,31 @@ $('#resource-button').addEventListener('click',()=>computerDialog());
 $('#agent-search').addEventListener('input',e=>{search=e.target.value;renderSidebar();});
 $('#attach-button').addEventListener('click',()=>{state.attachment=true;renderAttachment();save();toast('Sample meeting notes attached.');});
 $('#message-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();sendChat(e.target.value);}});
-$('.wordmark').addEventListener('click',e=>{e.preventDefault();state.panes={sidebar:true,chat:true,workspace:true};renderPanes();save();});
+function openHome(){
+  const main=state.agents.find(isMainSapi);if(!main)return;
+  state.panes={sidebar:true,chat:true,workspace:true};
+  openChat(main.id);
+}
+$('.wordmark').addEventListener('click',event=>{
+  event.preventDefault();
+  if(location.hash==='#home:root')openHome();
+  else location.hash='home:root';
+});
+addEventListener('hashchange',()=>{if(location.hash==='#home:root')openHome();});
 $('#workspace-menu').addEventListener('click',()=>{if(state.activeTab)tabSettings(state.activeTab);else addTabDialog();});
 $('#profile-button').addEventListener('click',()=>modal('Workspace settings',`<p>Alex Parker’s workspace. A local playground for your autonomous Sapi team.</p><div class="settings-row"><label>Workspace data<p>Agents, tabs, tasks, and edits save in this browser.</p></label><span class="tag">LOCAL</span></div><div class="settings-row"><label>Prototype version<p>01 · Shared computer & autonomous team</p></label></div><div class="modal-actions"><button class="button danger" id="reset-demo">Reset demo data</button><button class="button primary" data-action="close-settings">Done</button></div>`));
 actions['close-settings']=closeModal;
 document.addEventListener('click',e=>{if(e.target.id==='reset-demo'){if(pending.size){toast('Wait for active demo tasks to finish before resetting.');return;}state=structuredClone(seed);initializeRoster();workspaceOwner=state.selected;for(const e of browserFrames.values())e.frame.remove();browserFrames.clear();search='';$('#agent-search').value='';closeModal();render();toast('Fresh start. Demo data restored.');}});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('#modal').open){e.preventDefault();state.panes.sidebar=true;renderPanes();save();$('#agent-search').focus();}});
-render();
+$('#message-input').value=state.drafts?.[state.selected]||'';
+if(location.hash==='#home:root')openHome();else render();
+
+// Secondary navigation stays out of the way after choosing or leaving it.
+document.addEventListener('click',event=>{
+  if(!event.target.closest('.activity-menu'))$('.activity-menu')?.removeAttribute('open');
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&$('.activity-menu[open]')){
+    $('.activity-menu').removeAttribute('open');$('.activity-menu summary').focus();
+  }
+});

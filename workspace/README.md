@@ -59,3 +59,11 @@ The JSON has `schemaVersion`, provenance, `state`, and `artifacts`. `state` cont
 Browser edits use the separate localStorage key `corpora-sapiens-cases-v1`. After editing/rebuilding the fixture, use **Workspace settings → Reset demo data** to load the new fixture and restore all owners' tabs. Reload alone preserves local edits. The previous Brightside demo's storage is left untouched. Reset applies only to this static UI lab, never the live Sapiens data.
 
 The fixture excludes credentials, machine paths, runtime settings, memory consolidation, and raw tool traces. All business inputs remain clearly labeled SAMPLE DATA. It is a development snapshot, not an API backup or a live synchronization mechanism.
+
+## Compact neutral appearance
+
+The workspace uses system typography, white/charcoal themes, a compact agent list, and unboxed assistant replies. Long messages keep their complete original text inside **Show full message**; task references use the existing task title in the collapsed preview. Artifact buttons use the existing document title. Activity and Schedules live under **More**, and suggested prompts are collapsed by default. The existing demo fixture and storage key are unchanged. Embedded documents retain their own styles.
+
+Workspace appearance overrides are scoped to `body.sapi-workspace` in `assets/sapi-theme.css`; other lab modules retain their existing design. Rebuild the portable HTML after editing the source.
+
+The pink **Sapiens4** wordmark opens `#home:root`, restores the panels, and selects the main Sapi’s chat, including on direct navigation or reload. Agent colors and latest-update previews remain visible. Interactive shell controls use pink hover and focus accents in both themes; panel toggles stay neutral at rest.
